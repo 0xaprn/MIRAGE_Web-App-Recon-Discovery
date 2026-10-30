@@ -13,11 +13,6 @@
 </div>
 
 ---
-
-## See MIRAGE in action
-
-These are **real screenshots of the MIRAGE 0.5.0 application UI**, rendered from the HTML, CSS, JavaScript and WebGL topology renderer shipped in this repository. The example result was produced by running the actual discovery engine against a small, controlled local HTTP test site. The sample host, asset counts and findings are demonstration data—not results from a public target.
-
 ### Mission Control
 
 <p align="center"><img src="assets/preview-mission-control.png" alt="MIRAGE Mission Control showing a completed controlled test scan, metrics, live signal feed and topology preview" width="100%"></p>
