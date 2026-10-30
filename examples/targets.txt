@@ -1,0 +1,5 @@
+# Replace with domains or IP ranges explicitly authorized for your assessment.
+# example.com
+# https://app.example.com/login
+# 192.0.2.10
+# 192.0.2.0/28

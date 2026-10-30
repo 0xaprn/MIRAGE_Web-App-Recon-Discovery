@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=MIRAGE
+GenericName=Attack-Surface Intelligence
+Comment=Scoped web attack-surface discovery and research
+Exec=mirage-gui
+Terminal=false
+Categories=Development;Security;Network;

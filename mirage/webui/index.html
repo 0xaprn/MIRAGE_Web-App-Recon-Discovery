@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>MIRAGE // Attack Surface Intelligence</title>
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark">◈</div><div><div class="brand-name">MIRAGE</div><div class="brand-sub">SURFACE INTELLIGENCE</div></div></div>
+      <div class="side-rule"></div>
+      <div class="nav-label">WORKSPACE</div>
+      <nav class="nav">
+        <button class="nav-item active" data-view="overview"><span class="nav-icon">▦</span> Mission control</button>
+        <button class="nav-item" data-view="topology"><span class="nav-icon">⌘</span> 3D topology</button>
+        <button class="nav-item" data-view="assets"><span class="nav-icon">◫</span> Asset inventory</button>
+        <button class="nav-item" data-view="findings"><span class="nav-icon">⌁</span> Findings</button>
+        <button class="nav-item" data-view="activity"><span class="nav-icon">≋</span> Live activity</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="side-rule"></div>
+        <div class="nav-label">ENGINE</div>
+        <div class="engine-state"><span class="state-dot" id="sideDot"></span><span id="sideState">IDLE</span></div>
+        <div class="engine-meta">LOCAL PROCESS · SCOPE ENFORCED</div>
+        <div class="version">MIRAGE 0.5.0 <span>RESEARCH EDITION</span></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div><div class="eyebrow">EXTERNAL EXPOSURE / RESEARCH CONSOLE</div><h1 id="pageTitle">Mission control</h1><div class="page-sub" id="pageSub">Map the exposed surface. Understand the application. Investigate the evidence.</div></div>
+        <div class="top-actions"><div class="run-chip" id="runChip"><i></i><span id="runStatus">SYSTEM READY</span></div><div class="elapsed" id="elapsed">00:00</div><button class="btn btn-quiet" id="exportJson">Export JSON</button><button class="btn btn-quiet" id="exportHtml">Export HTML</button></div>
+      </header>
+
+      <section class="view active" id="view-overview">
+        <div class="command-panel panel">
+          <div class="command-head"><div><div class="section-kicker">TARGET INPUT</div><div class="section-title">Launch a discovery operation</div></div><div class="scope-note"><span class="scope-lock">◇</span> Redirects and discovered URLs remain scope-checked</div></div>
+          <div class="command-row"><div class="target-wrap"><span class="target-prefix">⌕</span><input id="targetInput" spellcheck="false" autocomplete="off" value="https://example.com" placeholder="Domain · URL · IP · CIDR"></div><label class="btn btn-secondary import-btn">Import list<input id="targetFile" type="file" accept=".txt,.list,.csv,text/plain" hidden></label><button class="btn btn-primary" id="startScan"><span class="play">▶</span> Initiate discovery</button></div>
+          <div class="profile-row"><label>ASSESSMENT PROFILE<select id="scanProfile"><option value="balanced">Balanced discovery</option><option value="deep">Deep web mapping</option><option value="infra">Infrastructure focus</option><option value="fast">Fast surface snapshot</option><option value="custom">Custom configuration</option></select></label><span class="profile-description" id="profileDescription">Balanced coverage across DNS, services and web application discovery.</span></div>
+          <div class="config-grid">
+            <label>PAGE BUDGET<input id="pages" type="number" min="1" max="10000" value="500"></label>
+            <label>WORKERS<input id="workers" type="number" min="1" max="32" value="24"></label>
+            <label>CRAWL DEPTH<input id="depth" type="number" min="0" max="12" value="5"></label>
+            <label>TIMEOUT · SEC<input id="timeout" type="number" min="0.5" step="0.5" value="5"></label>
+            <label>REQUEST DELAY<input id="delay" type="number" min="0" step="0.01" value="0.12"></label>
+            <label class="ports-field">CUSTOM TCP PORTS<input id="ports" type="text" spellcheck="false" placeholder="80,443,8000-8100"></label>
+          </div>
+          <div class="assessment-options"><label class="toggle-option"><input id="cveIntel" type="checkbox" checked><span>Live NVD CVE intelligence</span></label><span class="option-note">Version-bearing technology banners only · candidate matches require manual applicability review</span></div>
+          <div class="import-status" id="importStatus"></div>
+        </div>
+
+        <div class="telemetry panel"><div class="telemetry-head"><div><div class="section-kicker">LIVE SCAN TELEMETRY</div><div class="telemetry-stage" id="stageText">Standing by · Configure a target to begin</div></div><div class="scan-indicator" id="scanIndicator">IDLE</div></div><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><div class="telemetry-foot"><span id="phaseLabel">DISCOVERY ENGINE READY</span><span id="scanElapsed">ELAPSED 00:00</span></div></div>
+
+        <div class="metric-grid">
+          <article class="metric panel interactive-metric" data-goto="assets" title="Open asset inventory"><div class="metric-label">ASSETS MAPPED</div><div class="metric-value cyan" id="metricAssets">0</div><div class="metric-foot">Unique observations</div></article>
+          <article class="metric panel interactive-metric" data-goto="assets" title="Open host inventory"><div class="metric-label">HOSTS & DOMAINS</div><div class="metric-value blue" id="metricHosts">0</div><div class="metric-foot">DNS and address space</div></article>
+          <article class="metric panel interactive-metric" data-goto="assets" title="Open service inventory"><div class="metric-label">SERVICES</div><div class="metric-value violet" id="metricServices">0</div><div class="metric-foot">TCP and HTTP endpoints</div></article>
+          <article class="metric panel interactive-metric" data-goto="findings" title="Open security findings"><div class="metric-label">POTENTIAL FINDINGS</div><div class="metric-value amber" id="metricFindings">0</div><div class="metric-foot">Require verification</div></article>
+        </div>
+
+        <div class="overview-grid">
+          <article class="panel topology-card"><div class="panel-heading"><div><div class="section-kicker">RELATIONSHIP INTELLIGENCE</div><div class="section-title">Attack-surface topology</div></div><button class="text-button" data-goto="topology">Expand topology ↗</button></div><div class="mini-canvas-wrap"><canvas id="miniGl"></canvas><canvas id="miniOverlay" class="overlay"></canvas><div class="empty-map" id="miniEmpty"><span>◈</span><b>NO ASSET GRAPH YET</b><small>Run discovery to populate the relationship map</small></div></div><div class="map-legend"><span><i class="dot domain"></i>Domain</span><span><i class="dot host"></i>Host / IP</span><span><i class="dot service"></i>Service</span><span><i class="dot app"></i>Application</span><span><i class="dot param"></i>Parameter / API</span></div></article>
+          <article class="panel activity-card"><div class="panel-heading"><div><div class="section-kicker">ENGINE TELEMETRY</div><div class="section-title">Live signal feed</div></div><button class="text-button" data-goto="activity">View all ↗</button></div><div class="signal-feed" id="miniLogs"><div class="feed-empty">Waiting for discovery events…</div></div></article>
+        </div>
+      </section>
+
+      <section class="view" id="view-topology">
+        <div class="topology-toolbar panel"><div><div class="section-kicker">MULTI-LAYER ASSET RELATIONSHIP GRAPH</div><div class="section-title">Interactive 3D attack-surface map</div></div><div class="map-controls"><span class="hint">DRAG ROTATE · WHEEL ZOOM · CLICK INSPECT</span><button class="btn btn-quiet" id="resetMap">Reset view</button></div></div>
+        <div class="map-legend large"><span><i class="dot domain"></i>Domain</span><span><i class="dot host"></i>Host / IP</span><span><i class="dot service"></i>Service</span><span><i class="dot app"></i>Application</span><span><i class="dot param"></i>Parameter / API</span><span class="legend-count" id="graphCounts">0 NODES · 0 LINKS</span></div>
+        <div class="topology-layout"><div class="panel graph-panel"><canvas id="mainGl"></canvas><canvas id="mainOverlay" class="overlay"></canvas><div class="empty-map" id="mainEmpty"><span>◈</span><b>TOPOLOGY NOT POPULATED</b><small>Discovered relationships will appear here</small></div></div><aside class="panel inspector"><div class="section-kicker">OBJECT INSPECTOR</div><div class="inspector-empty" id="inspectorEmpty">Select any node in the graph to inspect its source, status, metadata and discovery evidence.</div><div id="inspectorContent" hidden><div class="object-kind" id="objectKind">ASSET</div><div class="object-value" id="objectValue"></div><div class="object-meta"><div><span>SOURCE</span><b id="objectSource"></b></div><div><span>STATUS</span><b id="objectStatus"></b></div></div><div class="section-kicker metadata-label">OBSERVED METADATA</div><pre id="objectDetails"></pre></div></aside></div>
+      </section>
+
+      <section class="view" id="view-assets"><div class="table-toolbar panel"><div><div class="section-kicker">DISCOVERY OUTPUT</div><div class="section-title">Asset inventory <span class="count-pill" id="assetCount">0</span></div></div><input class="table-search" id="assetSearch" placeholder="Filter assets…"></div><div class="panel table-panel"><table><thead><tr><th>TYPE</th><th>ASSET / VALUE</th><th>DISCOVERY SOURCE</th><th>STATUS</th></tr></thead><tbody id="assetRows"><tr><td colspan="4" class="table-empty">No assets discovered yet.</td></tr></tbody></table></div></section>
+      <section class="view" id="view-findings"><div class="table-toolbar panel"><div><div class="section-kicker">SECURITY RESEARCH</div><div class="section-title">Potential findings <span class="count-pill" id="findingCount">0</span></div></div><input class="table-search" id="findingSearch" placeholder="Filter findings…"></div><div class="panel table-panel"><table><thead><tr><th>SEVERITY</th><th>OBSERVATION</th><th>ASSET</th><th>CONFIDENCE</th><th>STATUS</th></tr></thead><tbody id="findingRows"><tr><td colspan="5" class="table-empty">No potential findings discovered yet.</td></tr></tbody></table></div><p class="footnote">Potential findings are leads, not confirmed vulnerabilities. Validate impact and exploitability independently.</p></section>
+      <section class="view" id="view-activity"><div class="activity-toolbar panel"><div><div class="section-kicker">ENGINE TELEMETRY</div><div class="section-title">Operation event stream</div></div><button class="btn btn-quiet" id="clearLogs">Clear view</button></div><div class="panel terminal" id="fullLogs"><div class="feed-empty">No activity yet. Start a discovery operation.</div></div></section>
+      <dialog id="detailDialog" class="detail-dialog"><div class="dialog-head"><div><div class="section-kicker" id="detailKind">OBJECT DETAILS</div><div class="dialog-title" id="detailTitle">Selected object</div></div><button class="btn btn-quiet" id="closeDetail">Close</button></div><div id="detailBody" class="detail-body"></div></dialog>
+      <footer class="footer"><span>MIRAGE // SURFACE INTELLIGENCE</span><span>DISCOVERY IS INCOMPLETE BY NATURE · VERIFY ALL FINDINGS</span></footer>
+    </main>
+  </div>
+  <script src="/app.js" defer></script>
+</body>
+</html>

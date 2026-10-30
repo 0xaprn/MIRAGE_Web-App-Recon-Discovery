@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mirage-attack-surface"
+version = "0.5.0"
+description = "Interactive attack-surface intelligence and web application research platform"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "Apache-2.0"}
+authors = [{name = "0xaprn"}]
+keywords = ["security", "reconnaissance", "attack-surface", "web-security", "research"]
+classifiers = ["Development Status :: 3 - Alpha", "Environment :: X11 Applications", "Operating System :: POSIX :: Linux", "Programming Language :: Python :: 3"]
+dependencies = ["dnspython>=2.6,<3"]
+
+[project.scripts]
+mirage = "mirage.cli:main"
+mirage-gui = "mirage.desktop:main"
+
+[tool.setuptools.packages.find]
+include = ["mirage*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.setuptools.package-data]
+mirage = ["webui/*.html", "webui/*.css", "webui/*.js"]
