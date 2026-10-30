@@ -2,7 +2,6 @@
   <img src="assets/mirage-mark.svg" alt="MIRAGE" width="112" />
   <h1>MIRAGE</h1>
   <p><strong>ATTACK-SURFACE INTELLIGENCE · WEB APPLICATION RESEARCH</strong></p>
-  <p>Discover the surface. Map the relationships. Investigate the evidence.</p>
   <p>
     <img alt="Version" src="https://img.shields.io/badge/version-0.5.0-13c8d8?style=flat-square" />
     <img alt="License" src="https://img.shields.io/badge/license-Apache--2.0-64748b?style=flat-square" />
